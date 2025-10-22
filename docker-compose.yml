@@ -1,0 +1,72 @@
+version: "3.8"
+
+# Run All Services
+services:
+  # Run Service
+  web:
+    build: .
+    container_name: php_apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - app_net
+
+  # Run Service
+  db:
+    image: mysql:5.7
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - app_net
+
+  # Run Service
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
+    networks:
+      - app_net
+
+   # Run Service
+  python_api:
+    build:
+      context: ./yolo_python   # Folder tempat app.py & requirements.txt
+    container_name: python_service
+    ports:
+      - "5000:5000"
+    networks:
+      - app_net
+
+  # Services Yolo Python Baru
+  yolo_api:                # Service baru untuk YOLO
+    build:
+      context: ./yolo_python   # Folder berisi app.py, Dockerfile, requirements.txt, my_model.pt, dll
+    container_name: yolo_python
+    ports:
+      - "5002:5000"            # Mapping host 5002 ke container 5000
+    networks:
+      - app_net
+
+volumes:
+  db_data:
+
+networks:
+  app_net:
