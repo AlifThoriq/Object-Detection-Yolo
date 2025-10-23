@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 // Konfigurasi Header: CORS & JSON
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
@@ -82,4 +82,4 @@ $response = [
 ];
 
 echo json_encode($response, JSON_PRETTY_PRINT);
-?>
+?> -->

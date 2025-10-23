@@ -4,19 +4,21 @@ import numpy as np
 import cv2
 import time
 import requests
+from flask_cors import CORS
 from datetime import datetime
 
 # =====================================================
 # Inisialisasi Flask & YOLO
 # =====================================================
 app = Flask(__name__)
+CORS(app)
 model = YOLO("my_model.pt")
 
 # =====================================================
 # Sumber kamera dan API PHP
 # =====================================================
-DROIDCAM_HTTP = ["http://192.168.110.254:4747/video"]  # sesuaikan IP droidcam kamu
-PHP_API_URL = "http://php_apache/objekyolo/save_detection.php"  # arahkan ke PHP API kamu
+DROIDCAM_HTTP = ["http://172.16.7.187:4747/video"]  # sesuaikan IP droidcam kamu
+PHP_API_URL = "http://php_apache/objekyolo/save_game_detection.php"  # arahkan ke PHP API kamu
 
 # =====================================================
 # Fungsi koneksi kamera

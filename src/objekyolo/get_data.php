@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 include "koneksi.php";
 header('Content-Type: application/json');
 
@@ -11,4 +11,4 @@ while ($row = $result->fetch_assoc()) {
 
 echo json_encode($data);
 $conn->close();
-?>
+?> -->
